@@ -1,70 +1,79 @@
-//namespace
-goog.provide('zoo');
-
-
-//dependencies
-goog.require('lime.Director');
+//set main namespace 
+goog.provide('zoo');   
+//get requirements 
+goog.require('lime.Director'); 
+goog.require('lime.Scene'); 
+goog.require('lime.Layer');   
 goog.require('lime.GlossyButton');
-goog.require('lime.Layer');
-goog.require('lime.Scene');
-goog.require('lime.audio.Audio');
-goog.require('zoo.Game');
+goog.require('zoo.Map');
 
-//entry point
-zoo.start = function() {
-	zoo.director = new lime.Director(document.body,1280,720);
-	var scene = new lime.Scene(),
-		layer = new lime.Layer();
-		
+//entrypoint 
+zoo.start = function(){     
 
-	var btn = new lime.GlossyButton('PLAY').setSize(200, 80).setPosition(640, 260);
-		goog.events.listen(btn, 'click', function() {
-			zoo.newgame(1);
-	});
-	layer.appendChild(btn);
+   //game object
+   var gameObj = {
+      width: 1280,
+      height: 720,
+      tile_type: 0,
+      tile_size: 64,
+      num_tiles_x: 32,
+      num_tiles_y: 18,
+      controlsLayer_w: 1280,
+      controlsLayer_h: 64*1.5      
+   }
 
-	var btn = new lime.GlossyButton('LOAD').setSize(200, 80).setPosition(640, 460);
-		goog.events.listen(btn, 'click', function() {
-			zoo.newgame(2);
-	});
-	layer.appendChild(btn);
+   //player object
+   var playerObj = {
+      spawn_x: 300,
+      spawn_y: 300,
+      counter: 0
+   }
 
-	scene.appendChild(layer);
+   var director = new lime.Director(document.body,gameObj.width,gameObj.height);     
+   director.makeMobileWebAppCapable();     
+   director.setDisplayFPS(false);        
 
-	zoo.director.makeMobileWebAppCapable();
-	zoo.director.setDisplayFPS(false);
-	zoo.director.replaceScene(scene);
+   var gameScene = new lime.Scene().setRenderer(lime.Renderer.CANVAS);
+   var mapLayer = new lime.Layer().setAnchorPoint(0, 0);
+   var controlsLayer = new lime.Layer().setAnchorPoint(0, 0);
 
-	//var sound = new lime.audio.Audio('assets/audio/x-files.mp3');
-	//zoo.sound.play();
+   gameScene.appendChild(mapLayer);
+   gameScene.appendChild(controlsLayer);
+
+    //controls area
+   var controlArea = new lime.Sprite().setAnchorPoint(0, 0).setPosition(0, 0)
+                     .setSize(gameObj.controlsLayer_w, gameObj.controlsLayer_h)
+                     .setFill('#0D0D0D')
+   controlsLayer.appendChild(controlArea);
+
+   //menu button
+   var menuButton = new lime.GlossyButton().setColor('#133242').setText('Menu')
+                  .setPosition(60, gameObj.controlsLayer_h/2)
+                  .setSize(80, 40);
+   controlsLayer.appendChild(menuButton); 
+
+   //counter
+   var counterLabel = new lime.Label().setText('#'+playerObj.counter).setFontColor('#E8FC08')
+                     .setPosition(gameObj.controlsLayer_w-50, gameObj.controlsLayer_h/2);
+   controlsLayer.appendChild(counterLabel); 
+
+   //create map elements
+   for(var i=0; i<gameObj.num_tiles_x; i++) {   
+      for(var j=0; j<gameObj.num_tiles_y; j++) {
+        if (j===0) { 
+            gameObj.tile_type = 0;
+            var mapElementS = new zoo.Map(gameObj, playerObj).setPosition(-i*gameObj.tile_size+gameObj.tile_size/2, -j*gameObj.tile_size+gameObj.tile_size/2);
+            mapLayer.appendChild(mapElementS);
+         } else {
+            gameObj.tile_type = 0;
+            var mapElement = new zoo.Map(gameObj, playerObj).setPosition(i*gameObj.tile_size, j*gameObj.tile_size);
+            gameObj.tile_type = 1;
+            var mapElement2 = new zoo.Map(gameObj, playerObj).setPosition(i*gameObj.tile_size+gameObj.tile_size/2, j*gameObj.tile_size+gameObj.tile_size/2);
+            mapLayer.appendChild(mapElement);
+            mapLayer.appendChild(mapElement2);
+         }          
+      }
+    }
+
+   director.replaceScene(gameScene); 
 }
-
-zoo.newgame = function(mode) {
-	var scene = new lime.Scene(),
-		layer = new lime.Layer();
-
-	scene.appendChild(layer);
-
-	var game = new zoo.Game(mode);
-	var map = game[0];
-	var sprite = game[1];
-	
-	
-	layer.appendChild(map);
-	layer.appendChild(sprite);
-
-	zoo.director.replaceScene(scene);
-
-	//initiate controls
-	//this.move = new zoo.Sprite(map, sprite);
-
-
-	//var sprite = new zoo.Sprite();
-	//layer.appendChild(sprite);
-
-	//var newMap = zoo.Game.map;
-	//layer.appendChild(newMap);
-	
-
-	
-};
