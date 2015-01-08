@@ -1,0 +1,42 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="UTF-8" />
+	<title>Zoo Hunter</title>
+	<script src="js/phaser.min.js"></script>
+	<!--<script src="js/phaser-plugin-isometric.min.js"></script>-->
+	<script src="js/Boot.js"></script>
+	<script src="js/Preloader.js"></script>
+	<script src="js/MainMenu.js"></script>
+	<script src="js/Game.js"></script>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: #888;
+        }
+    </style>
+</head>
+<body>
+
+<script type="text/javascript">
+
+	window.onload = function() {
+
+		var game = new Phaser.Game(800, 600, Phaser.AUTO, '');
+
+		//	Add game states.
+		game.state.add('Boot', ZooHunter.Boot);
+		game.state.add('Preloader', ZooHunter.Preloader);
+		game.state.add('MainMenu', ZooHunter.MainMenu);
+		game.state.add('Game', ZooHunter.Game);
+
+		//	Start the Boot state.
+		game.state.start('Boot');
+
+	};
+
+</script>
+
+</body>
+</html>
