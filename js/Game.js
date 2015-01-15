@@ -25,10 +25,6 @@ ZooHunter.Game = function (game) {
 
     this.map;
     this.layer = {};
-    this.floor;
-    this.collidable;
-    this.notCollidable;
-    this.door;
     this.gameAudio;
     this.keySound;
     this.walkSound;
@@ -57,20 +53,20 @@ ZooHunter.Game.prototype = {
 
         //  The first parameter is the tileset name, as specified in the Tiled map editor (and in the tilemap json file)
         //  The second parameter maps this name to the Phaser.Cache key 'tiles'
-        this.map.addTilesetImage('tileb', 'tileset');
+        this.map.addTilesetImage('tiles-32x32', 'tileset');
 
         this.map.setCollisionBetween(0, 1600, true, 'Tile Layer 4');
         this.map.setCollisionBetween(0, 1600, true, 'Tile Layer 3');
         
 
         //  Add layers from the map data.
-        this.floor = this.map.createLayer('Tile Layer 1');
-        this.notCollidable = this.map.createLayer('Tile Layer 2');
-        this.door = this.map.createLayer('Tile Layer 3');
-        this.collidable = this.map.createLayer('Tile Layer 4');
+        this.layer.floor = this.map.createLayer('Tile Layer 1');
+        this.layer.notCollidable = this.map.createLayer('Tile Layer 2');
+        this.layer.collidable = this.map.createLayer('Tile Layer 3');
+        this.layer.door = this.map.createLayer('Tile Layer 4');
 
          //  This resizes the game world to match the layer dimensions
-        this.floor.resizeWorld();
+        this.layer.floor.resizeWorld();
 
         this.scoreText = this.game.add.text(50, 50, 'score: 0', { fontSize: '32px', fill: 'white' });
         
@@ -92,7 +88,6 @@ ZooHunter.Game.prototype = {
 	update: function () {
         this.tick++;
 
-        //this.cursors = null;
         this.player.body.velocity.y = 0;
         this.player.body.velocity.x = 0;
 
@@ -116,14 +111,14 @@ ZooHunter.Game.prototype = {
         }
         
 
-        this.game.physics.arcade.collide(this.player, this.collidable);
+        this.game.physics.arcade.collide(this.player, this.layer.collidable);
         this.game.physics.arcade.overlap(this.player, this.key, this.collectKey, null, this);
         this.game.physics.arcade.overlap(this.player, this.animal, this.collectAnimal, null, this);
 
         if (!this.hasKey) {
-            this.game.physics.arcade.collide(this.player, this.door);
+            this.game.physics.arcade.collide(this.player, this.layer.door);
         } else { 
-            this.game.physics.arcade.overlap(this.player, this.door, this.openDoor, null, this);
+            this.game.physics.arcade.overlap(this.player, this.layer.door, this.openDoor, null, this);
         }
         
        
@@ -133,7 +128,7 @@ ZooHunter.Game.prototype = {
 
     spawnPlayer: function() {
 
-        this.player = this.add.sprite(500, 500, 'dude');
+        this.player = this.add.sprite(550, 550, 'dude');
         this.physics.arcade.enable(this.player);
         this.player.body.collideWorldBounds = true;
 
@@ -143,14 +138,14 @@ ZooHunter.Game.prototype = {
 
     spawnKey: function() {
 
-        this.key = this.add.sprite(600, 400, 'key');
+        this.key = this.add.sprite(900, 400, 'key');
         this.physics.arcade.enable(this.key);
 
     },
 
     spawnAnimal: function() {
 
-        this.animal = this.add.sprite(300, 630, 'key');
+        this.animal = this.add.sprite(300, 330, 'key');
         this.physics.arcade.enable(this.animal);
 
     },
@@ -174,7 +169,7 @@ ZooHunter.Game.prototype = {
     openDoor: function() {
 
         this.keySound.play();
-        this.door.kill();
+        this.layer.door.kill();
 
     },
 

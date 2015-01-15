@@ -12,8 +12,8 @@ ZooHunter.MainMenu.prototype = {
 
 	create: function () {
 
-		//this.mainAudio = this.add.audio('mainmenuAudio');
-		//this.mainAudio.play();
+		this.mainAudio = this.add.audio('mainmenuAudio');
+		this.mainAudio.play();
 
 		this.bg = this.add.tileSprite(0, 0, this.game.width, this.game.height, 'starfield');
 
@@ -46,7 +46,7 @@ ZooHunter.MainMenu.prototype = {
 
 	startGame: function(pointer) {
 
-		//this.mainAudio.stop();
+		this.mainAudio.stop();
 
 		this.state.start('Game');
 	}

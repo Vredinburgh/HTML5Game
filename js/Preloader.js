@@ -12,42 +12,40 @@ ZooHunter.Preloader.prototype = {
 
 	preload: function () {
 
-		//	These are the assets that have been loaded in Boot.js
-		//this.background = this.add.sprite(this.world.centerX, this.world.centerY, 'logo');
-		//this.background.anchor.set(0.5);
+		//These are the assets that have been loaded in Boot.js
 
 		this.preloadBar = this.add.sprite(this.world.centerX - 150, this.world.centerY, 'preloadBar');
 		this.preloadBar.anchor.set(0);
 
-		//	This sets the preloadBar sprite as a loader sprite.
-		//	What that does is automatically crop the sprite from 0 to full-width
-		//	as the files below are loaded in.
+		//This sets the preloadBar sprite as a loader sprite.
+		//What that does is automatically crop the sprite from 0 to full-width
+		//as the files below are loaded in.
 
 		this.load.setPreloadSprite(this.preloadBar);
 
 	    var assets = {
 	    	tilemap: {
-	    		map: 			['assets/maps/orthographic/map.json', null, Phaser.Tilemap.TILED_JSON]
+	    		map: 			['assets/maps/orthographic/tilemap.json', null, Phaser.Tilemap.TILED_JSON]
 	    	},
 			spritesheet: {
 				dude: 			['assets/sprites/Billy 32px.png', 41, 65]
 			},
 			image: {
-				tileset: 		["assets/maps/orthographic/tileb-32x32.png"],
+				tileset: 		["assets/maps/orthographic/tiles-32x32.png"],
 				startButton: 	['assets/sprites/Start.png'],
 				player: 		['assets/sprites/illuminati-32x32.png'],
 				starfield: 		['assets/sprites/deep-space.jpg'],
 				key: 			['assets/sprites/monster.png']
 			},
 			audio: {
-				//mainmenuAudio: 	['assets/audio/x-files.mp3'],
+				mainmenuAudio: 	['assets/audio/x-files.mp3'],
 				gameAudio: 		['assets/audio/mortal_kombat.mp3'],
 				keySound: 		['assets/audio/Locked door.mp3'],
 				walkSound: 		['assets/audio/footstep_record.mp3']
 			}
 		};
 
-		// Loads all files targeted with the assets object. It loops through every secondary key nested in the primary key.
+		//Loads all files targeted with the assets object. It loops through every secondary key nested in the primary key.
 		var that = this;
 		Object.keys(assets).forEach(function(type) {
 	    	Object.keys(assets[type]).forEach(function(id) {
