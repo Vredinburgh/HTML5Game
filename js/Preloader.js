@@ -32,18 +32,15 @@ ZooHunter.Preloader.prototype = {
 				dude: 			['assets/sprites/Billy 32px.png', 41, 65]
 			},
 			image: {
-				tileset: 		["assets/maps/orthographic/tiles-32x32.png"],
+				tileset: 		['assets/maps/orthographic/tiles-32x32.png'],
 				startButton: 	['assets/sprites/Start.png'],
 				elephant: 		['assets/sprites/olifant.png'],
 				penguin: 		['assets/sprites/penguin.png'],
-				starfield: 		['assets/sprites/deep-space.jpg'],
 				key: 			['assets/sprites/key.png'],
 				startScreen: 	['assets/sprites/Title_Screen.png']
 			},
 			audio: {
-				audio: 			['assets/audio/music.ogg'],
-				mainmenuAudio: 	['assets/audio/x-files.mp3'],
-				gameAudio: 		['assets/audio/mortal_kombat.mp3'],
+				gameAudio: 		['assets/audio/music.ogg'],
 				keySound: 		['assets/audio/Locked door.mp3'],
 				walkSound: 		['assets/audio/footstep_record.mp3']
 			}

@@ -12,7 +12,7 @@ ZooHunter.MainMenu.prototype = {
 
 	create: function () {
 
-		this.mainAudio = this.add.audio('mainmenuAudio');
+		this.mainAudio = this.add.audio('gameAudio');
 		this.mainAudio.play();
 
 		this.bg = this.add.tileSprite(0, 0, this.game.width, this.game.height, 'startScreen');
