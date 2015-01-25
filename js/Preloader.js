@@ -25,14 +25,14 @@ ZooHunter.Preloader.prototype = {
 
 	    var assets = {
 	    	tilemap: {
-	    		map: 			['assets/maps/orthographic/tilemap.json', null, Phaser.Tilemap.TILED_JSON]
+	    		map: 			['assets/maps/tilemap.json', null, Phaser.Tilemap.TILED_JSON]
 	    	},
 			spritesheet: {
 				billy: 			['assets/sprites/Billy_animate.png', 191, 248.5],
 				dude: 			['assets/sprites/Billy 32px.png', 41, 65]
 			},
 			image: {
-				tileset: 		['assets/maps/orthographic/tiles-32x32.png'],
+				tileset: 		['assets/maps/tiles-32x32.png'],
 				startButton: 	['assets/sprites/Start.png'],
 				elephant: 		['assets/sprites/olifant.png'],
 				penguin: 		['assets/sprites/penguin.png'],
