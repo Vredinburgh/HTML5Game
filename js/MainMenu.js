@@ -15,7 +15,7 @@ ZooHunter.MainMenu.prototype = {
 		this.mainAudio = this.add.audio('mainmenuAudio');
 		this.mainAudio.play();
 
-		this.bg = this.add.tileSprite(0, 0, this.game.width, this.game.height, 'starfield');
+		this.bg = this.add.tileSprite(0, 0, this.game.width, this.game.height, 'startScreen');
 
 		this.startButton = this.add.sprite(this.world.centerX, this.world.centerY, 'startButton');
 		this.startButton.anchor.set(0.5);

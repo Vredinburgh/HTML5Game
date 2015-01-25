@@ -85,6 +85,35 @@ ZooHunter.Game.prototype = {
 
 	},
 
+    spawnPlayer: function() {
+
+        this.player = this.add.sprite(550, 550, 'dude');
+        this.physics.arcade.enable(this.player);
+        this.player.body.collideWorldBounds = true;
+
+        /*this.player.animations.add('down', [0, 1, 2], 10, true);
+        this.player.animations.add('left', [3, 4, 5], 10, true);
+        this.player.animations.add('right', [6, 7, 8], 10, true);
+        this.player.animations.add('up', [9, 10, 11], 10, true);*/
+
+        this.camera.follow(this.player);
+
+    },
+
+    spawnKey: function() {
+
+        this.key = this.add.sprite(900, 400, 'key');
+        this.physics.arcade.enable(this.key);
+
+    },
+
+    spawnAnimal: function() {
+
+        this.animal = this.add.sprite(500, 330, 'penguin');
+        this.physics.arcade.enable(this.animal);
+
+    },
+
 	update: function () {
         this.tick++;
 
@@ -97,18 +126,22 @@ ZooHunter.Game.prototype = {
  
         if (this.cursors.left.isDown) {
             this.player.body.velocity.x -= this.SPEED;
+            //this.player.animations.play('left');
             this.player.frame = 0;
         } else if (this.cursors.right.isDown) {
             this.player.body.velocity.x += this.SPEED;
+            //this.player.animations.play('right');
             this.player.frame = 2;
-        } 
-        if (this.cursors.up.isDown) {
+        } else if (this.cursors.up.isDown) {
             this.player.body.velocity.y -= this.SPEED;
+            //this.player.animations.play('up');
             this.player.frame = 3;
         } else if (this.cursors.down.isDown) {
             this.player.body.velocity.y += this.SPEED;
+            //this.player.animations.play('down');
             this.player.frame = 1;
         }
+        else {this.player.frame = 1;}
         
 
         this.game.physics.arcade.collide(this.player, this.layer.collidable);
@@ -126,29 +159,7 @@ ZooHunter.Game.prototype = {
 
     },
 
-    spawnPlayer: function() {
-
-        this.player = this.add.sprite(550, 550, 'dude');
-        this.physics.arcade.enable(this.player);
-        this.player.body.collideWorldBounds = true;
-
-        this.camera.follow(this.player);
-
-    },
-
-    spawnKey: function() {
-
-        this.key = this.add.sprite(900, 400, 'key');
-        this.physics.arcade.enable(this.key);
-
-    },
-
-    spawnAnimal: function() {
-
-        this.animal = this.add.sprite(300, 330, 'key');
-        this.physics.arcade.enable(this.animal);
-
-    },
+    
 
     collectKey: function() {
 
