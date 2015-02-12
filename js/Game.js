@@ -49,6 +49,26 @@ ZooHunter.Game.prototype = {
 
         this.stage.backgroundColor = '#787878';
 
+        
+
+        this.scoreText = this.game.add.text(50, 50, 'score: 0', { fontSize: '32px', fill: 'white' });
+        
+
+        this.gameAudio = this.add.audio('gameAudio');
+        this.keySound = this.add.audio('keySound');
+        this.walkSound = this.add.audio('walkSound');
+        this.gameAudio.play();
+
+        this.cursors = this.game.input.keyboard.createCursorKeys();
+
+        this.spawnPlayer();
+        this.spawnKey();
+        this.spawnAnimal();
+
+	},
+
+    spawnMap: function() {
+
         this.map = this.add.tilemap('map');
 
         //  The first parameter is the tileset name, as specified in the Tiled map editor (and in the tilemap json file)
@@ -68,22 +88,7 @@ ZooHunter.Game.prototype = {
          //  This resizes the game world to match the layer dimensions
         this.layer.floor.resizeWorld();
 
-        this.scoreText = this.game.add.text(50, 50, 'score: 0', { fontSize: '32px', fill: 'white' });
-        
-
-        this.gameAudio = this.add.audio('gameAudio');
-        this.keySound = this.add.audio('keySound');
-        this.walkSound = this.add.audio('walkSound');
-        this.gameAudio.play();
-
-        this.cursors = this.game.input.keyboard.createCursorKeys();
-
-        this.spawnPlayer();
-        this.spawnKey();
-        this.spawnAnimal();
-
-
-	},
+    },
 
     spawnPlayer: function() {
 
@@ -115,10 +120,11 @@ ZooHunter.Game.prototype = {
     },
 
 	update: function () {
+
         this.tick++;
 
-        this.player.body.velocity.y = 0;
         this.player.body.velocity.x = 0;
+        this.player.body.velocity.y = 0;
 
         if (this.tick % 100 === 0) {
             console.log(this.tick + " ticks");
@@ -154,12 +160,7 @@ ZooHunter.Game.prototype = {
             this.game.physics.arcade.overlap(this.player, this.layer.door, this.openDoor, null, this);
         }
         
-       
-        
-
     },
-
-    
 
     collectKey: function() {
 

@@ -18,7 +18,6 @@ ZooHunter.Boot.prototype = {
         //this.scale.scaleMode = Phaser.ScaleManager.RESIZE;
 
         this.time.advancedTiming = true;
-
         
     },
 
